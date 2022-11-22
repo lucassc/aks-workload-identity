@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vault-reader
+  name: vault-reader
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault-reader
+  template:
+    metadata:
+      labels:
+        app: vault-reader
+    spec:
+      serviceAccountName: application-sa
+      containers:
+      - image: schwendler/vault-reader:0.0.1
+        name: vault-reader
+        imagePullPolicy: Always
+        
+        ports:
+        - containerPort: 8888
+        resources:
+          requests: 
+            cpu: 50m
+            memory: 128Mi
+          limits: 
+            cpu: 100m
+            memory: 256Mi
+        env:
+        - name: KEY_VAULT_NAME
+          value: "VAULT_NAME_TO_REPLACE"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: vault-reader
+  name: vault-reader
+spec:
+  ports:
+  - port: 8088
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    app: vault-reader
+
