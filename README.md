@@ -35,8 +35,6 @@ az keyvault secret set --vault-name $KEY_VAULT_NAME --name "my-secret-name" --va
 # Step 3 - Connect to cluster
 
 ``` BASH
-az login
-
 az account set --subscription <your-subscription-id>
 
 az aks get-credentials --resource-group k8s-rg --name aks-cluster
@@ -56,7 +54,10 @@ The source code for these application is inside the repository, go to [vault.rea
 
 ``` BASH
 kubectl port-forward deployment/vault-reader 8888:8888
+```
 
+Now you need to open another terminal to get the secret value
+``` BASH
 curl --location --request GET 'http://127.0.0.1:8888/get-secret/my-secret-name'
 ```
 
@@ -85,4 +86,12 @@ AZURE_CLIENT_ID=<service-principal-id>
 AZURE_TENANT_ID=<your-tenant-id>
 AZURE_FEDERATED_TOKEN_FILE=/var/run/secrets/azure/tokens/azure-identity-token
 AZURE_AUTHORITY_HOST=https://login.microsoftonline.com/
+```
+
+# After all: DESTROY!!!
+
+To avoid surprises, don't forget to delete the resources.
+
+``` BASH
+terraform destroy -auto-approve -var-file values.tfvars
 ```
