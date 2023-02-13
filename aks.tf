@@ -9,7 +9,9 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   role_based_access_control_enabled = true
   oidc_issuer_enabled               = true
 
-  api_server_authorized_ip_ranges = ["0.0.0.0/0"]
+  api_server_access_profile {
+    authorized_ip_ranges = ["0.0.0.0/0"]
+  }
 
   default_node_pool {
     name            = "default"
@@ -30,6 +32,6 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
 
 output "aks_oidc_issuer_url" {
-  value= azurerm_kubernetes_cluster.k8s.oidc_issuer_url
+  value       = azurerm_kubernetes_cluster.k8s.oidc_issuer_url
   description = "The OIDC issuer URL that is associated with the cluster"
 }
