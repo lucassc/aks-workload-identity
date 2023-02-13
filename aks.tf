@@ -5,6 +5,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   dns_prefix              = "k8s"
   node_resource_group     = "aks-node-pool-resources"
   private_cluster_enabled = false
+  kubernetes_version      = "1.24.9"
 
   role_based_access_control_enabled = true
   oidc_issuer_enabled               = true
