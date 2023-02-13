@@ -11,16 +11,13 @@ resource "azurerm_key_vault" "key_vault" {
   enabled_for_disk_encryption = true
 }
 
-data "azuread_service_principal" "app" {
-  application_id = azuread_application.app.application_id
-}
 
 resource "azurerm_key_vault_access_policy" "key_vault_access_policy" {
 
   key_vault_id = azurerm_key_vault.key_vault.id
 
   tenant_id = data.azurerm_client_config.current.tenant_id
-  object_id = data.azuread_service_principal.app.id
+  object_id = azuread_service_principal.app.id
 
   secret_permissions = [
     "Get",
