@@ -95,3 +95,7 @@ To avoid surprises, don't forget to delete the resources.
 ``` BASH
 terraform destroy -auto-approve -var-file values.tfvars
 ```
+
+# Blog
+
+This repository is an example for this blog post: [Authenticating Kubernetes Workloads with Azure AD workload identity](https://nl.devoteam.com/expert-view/authenticating-kubernetes-workloads-with-azure-ad-workload-identity/)
