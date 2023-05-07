@@ -1,0 +1,10 @@
+site_name: aks-workload-identity
+site_description: 'Main documentation for Backstage aks-workload-identity'
+repo_url: https://github.com/lucassc/aks-workload-identity
+edit_uri: edit/main/docs
+
+plugins:
+  - techdocs-core
+
+nav:
+  - Home: index.md
